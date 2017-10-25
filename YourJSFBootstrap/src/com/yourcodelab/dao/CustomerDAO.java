@@ -12,11 +12,11 @@ import com.yourcodelab.model.Customer;
 public class CustomerDAO extends GenericDAO{
 	PreparedStatement ps;
 	
-	private String INSERT_CUSTOMER = "INSERT INTO CUSTOMER VALUES(?, ?, ?, ?, ?, ?);";//?
+	private String INSERT_CUSTOMER = "INSERT INTO CUSTOMER VALUES(?, ?, ?, ?, ?, ?, ?);";
 	private String LISTAR_TODOS = "select customer.*, Category.description from Customer inner join Category on Customer.idCategory = Category.id;";
-	private String ALTERAR = "UPDATE CUSTOMER SET NAME = ?, EMAIL = ?, IDCATEGORY = ? WHERE ID=?;";
+	private String ALTERAR = "UPDATE CUSTOMER SET NAME = ?, EMAIL = ?, IDCATEGORY = ?, VIDEOGAME = ?, SERIES = ?, FUTEBOL = ?, FUMANTE = ? WHERE ID=?;";
 	private String EXCLUIR = "DELETE CUSTOMER WHERE ID=?;";
-	private String PROCURAR_NOME = "select customer.*, Category.description from Customer inner join Category on Customer.idCategory = Category.id WHERE NAME=?;";
+	private String PROCURAR_NOME = "select customer.*, Category.description from Customer inner join Category on Customer.idCategory = Category.id where name like ?";
 	
 	public void salvar(Customer c) throws SQLException {
 		openConnection();
@@ -29,7 +29,7 @@ public class CustomerDAO extends GenericDAO{
 		ps.setInt(4, c.getVideogame());
 		ps.setInt(5, c.getSeries());
 		ps.setInt(6, c.getFutebol());
-		//ps.setInt(7, c.getFumante());
+		ps.setInt(7, c.getFumante());
 		
 		ps.execute();
 		
@@ -43,7 +43,11 @@ public class CustomerDAO extends GenericDAO{
 		ps.setString(1, c.getName());
 		ps.setString(2, c.getEmail());
 		ps.setInt(3, c.getCategory().getId());
-		ps.setInt(4, c.getId());
+		ps.setInt(4, c.getVideogame());
+		ps.setInt(5, c.getSeries());
+		ps.setInt(6, c.getFutebol());
+		ps.setInt(7, c.getFumante());
+		ps.setInt(8, c.getId());
 		
 		ps.execute();
 		
@@ -62,7 +66,7 @@ public class CustomerDAO extends GenericDAO{
 		if(rs != null) {
 			while(rs.next()) {
 				Category  category= new Category(rs.getInt("idCategory"), rs.getString("description"));
-				Customer c = new Customer(rs.getInt("id"), rs.getString("name"), rs.getString("email"), category, rs.getInt("videogame"), rs.getInt("series"), rs.getInt("futebol"), 0);
+				Customer c = new Customer(rs.getInt("id"), rs.getString("name"), rs.getString("email"), category, rs.getInt("videogame"), rs.getInt("series"), rs.getInt("futebol"), rs.getInt("fumante"));
 				lista.add(c);
 			}
 		}
@@ -89,7 +93,7 @@ public class CustomerDAO extends GenericDAO{
 		openConnection();
 		
 		ps = connect.prepareStatement(PROCURAR_NOME);
-		ps.setString(1, name);
+		ps.setString(1, name + "%");
 		
 		ResultSet rs = ps.executeQuery();
 		

@@ -21,6 +21,10 @@ public class CustomerManagedBean implements Serializable{
 	private CustomerService service;
 	private Category category;
 	
+	private boolean videogame;
+	private boolean series;
+	private boolean futebol;
+	
 	public CustomerManagedBean() throws SQLException{
 		service = new CustomerService();
 		category = new Category(0, "");
@@ -28,24 +32,15 @@ public class CustomerManagedBean implements Serializable{
 		listCustomer = service.listAll();
 	}
 
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	public String searchByNameAction() throws SQLException{
+	public void searchByNameAction() throws SQLException{
 		System.out.println("Searching...");
 		this.listCustomer = service.findCustomerByName(customer.getName());
 		
-		return "index";
 	}
 	
 	public String insertCustomerAction() throws SQLException{
 		System.out.println("Saving...");
-		service.insertCustomer(customer);
+		service.insertCustomer(customer, isVideogame(), isSeries(), isFutebol());
 		
 		this.listCustomer = service.listAll();
 		
@@ -54,7 +49,7 @@ public class CustomerManagedBean implements Serializable{
 	
 	public String updateCustomerAction() throws SQLException{
 		System.out.println("Updating...");
-		service.updateCustomer(customer);
+		service.updateCustomer(customer, isVideogame(), isSeries(), isFutebol());
 		this.listCustomer = service.listAll();
 		
 		return "index";
@@ -64,6 +59,14 @@ public class CustomerManagedBean implements Serializable{
 		System.out.println("Deleting...");
 		service.deleteCustomer(customer);
 		listCustomer = service.listAll();
+	}
+	
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	
 	public Customer getCustomer() {
@@ -80,6 +83,30 @@ public class CustomerManagedBean implements Serializable{
 
 	public void setListCustomer(List<Customer> listCustomer) {
 		this.listCustomer = listCustomer;
+	}
+
+	public boolean isVideogame() {
+		return videogame;
+	}
+
+	public void setVideogame(boolean videogame) {
+		this.videogame = videogame;
+	}
+
+	public boolean isSeries() {
+		return series;
+	}
+
+	public void setSeries(boolean series) {
+		this.series = series;
+	}
+
+	public boolean isFutebol() {		
+		return futebol;
+	}
+
+	public void setFutebol(boolean futebol) {
+		this.futebol = futebol;
 	}
 	
 }

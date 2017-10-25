@@ -18,7 +18,26 @@ public class CustomerService {
 		return list;
 	}
 	
-	public void insertCustomer(Customer c) throws SQLException{
+	public void insertCustomer(Customer c, boolean videogame, boolean series, boolean futebol) throws SQLException{
+		if(videogame == true) {
+			c.setVideogame(1);
+		}
+		else {
+			c.setVideogame(0);
+		}
+		if(series == true) {
+			c.setSeries(1);
+		}
+		else {
+			c.setSeries(0);
+		}
+		if(futebol == true) {
+			c.setFutebol(1);
+		}
+		else {
+			c.setFutebol(0);
+		}
+		
 		dao.salvar(c);
 	}
 	
@@ -35,7 +54,26 @@ public class CustomerService {
 		return list;
 	}
 	
-	public void updateCustomer(Customer c) throws SQLException {
+	public void updateCustomer(Customer c, boolean videogame, boolean series, boolean futebol) throws SQLException {
+		if(videogame == true) {
+			c.setVideogame(1);
+		}
+		else {
+			c.setVideogame(0);
+		}
+		if(series == true) {
+			c.setSeries(1);
+		}
+		else {
+			c.setSeries(0);
+		}
+		if(futebol == true) {
+			c.setFutebol(1);
+		}
+		else {
+			c.setFutebol(0);
+		}
+		
 		dao.update(c);
 	}
 	

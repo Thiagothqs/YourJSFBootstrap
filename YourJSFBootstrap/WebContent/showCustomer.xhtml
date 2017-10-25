@@ -51,11 +51,27 @@
 					<f:selectItems value="#{categoryManagedBean.listCategory}" var="category" itemValue="#{category.id}" itemLabel="#{category.description}"/>
 				</h:selectOneMenu>
 			</div>
+			<div>
+				<h:outputLabel value="Preferências:"/><br></br>
+				<h:selectBooleanCheckbox value="#{customerManagedBean.videogame}"/>Video Game
+			</div>
+			<div>
+				<h:selectBooleanCheckbox value="#{customerManagedBean.series}"/>Series
+			</div>
+			<div>
+				<h:selectBooleanCheckbox value="#{customerManagedBean.futebol}"/>Futebol
+			</div>
+			<div>
+				<h:outputLabel value="Fumante:"/>
+				<h:selectOneRadio value="#{customerManagedBean.customer.fumante}">
+					<f:selectItem itemValue="1" itemLabel="Sim" />
+					<f:selectItem itemValue="0" itemLabel="Não" />
+				</h:selectOneRadio>
+			</div>
 			<div id="actions" class="row">
 				<div class="col-md-12">
 					<h:commandLink styleClass="btn btn-primary" value="Save" action="#{customerManagedBean.updateCustomerAction}"/>
 			      	<h:commandLink styleClass="btn btn-default" value="Cancel" action="index?faces-redirect=true"/>
-			      	
 			    </div>
 			</div>
 			</h:form>			
