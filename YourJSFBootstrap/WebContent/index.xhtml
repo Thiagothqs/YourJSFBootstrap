@@ -39,12 +39,12 @@
 				<div class="col-md-12">
 					<h:outputLabel for="searchName" value="Name:"/>
 					<h:inputText id="searchName" styleClass="form-control mb-4 mr-sm-4 mb-sm-0" value="#{customerManagedBean.customer.name}">
-						<p:ajax event="keyup" listener="#{customerManagedBean.searchByNameAction}" update="customerTable" process="@all" />
+						<p:ajax event="keyup" listener="#{customerManagedBean.searchByNameAction}" update="tabela" process="@this" />
 					</h:inputText>
 					<h:commandLink styleClass="btn btn-primary" value="New Customer" action="newCustomer?faces-redirect=true"/>
 				</div>
 			</div>
-			<h:dataTable styleClass="table table-striped" var="c" value="#{customerManagedBean.listCustomer}">
+			<h:dataTable id="tabela" styleClass="table table-striped" var="c" value="#{customerManagedBean.listCustomer}">
 				<h:column>
 					<f:facet name="header">
 						<h:outputLabel value="Id"/>
